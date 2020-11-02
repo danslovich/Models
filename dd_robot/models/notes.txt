@@ -1,0 +1,3 @@
+//gz spawn command
+rosrun gazebo_ros spawn_model -file box.sdf-sdf -z 1 -model dd_box_0
+rosrun gazebo_ros spawn_model -file model.sdf -sdf -z 1 -model dd_model_1
