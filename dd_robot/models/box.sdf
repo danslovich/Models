@@ -1,10 +1,11 @@
 <sdf version="1.4">
-<model name = "dd_robot">
-
+<model name = "simple_box">
+    <author>
+        <name>Daniel Slovich</name>
+        <email>danslovich@gmail.com</email>
+    </author>
     <pose>0.0 0.0 0.5 0.0  0.0 0.0</pose>
-
-    <link name="link">
-        
+    <link name="box">
         <inertial>
             <mass>1.0</mass>
             <inertia>
@@ -16,24 +17,26 @@
                 <izz>0.083</izz>
             </inertia>
         </inertial>
-        
-        <collision name="link_col">
+        <collision name="box_col">
             <geometry>
                 <box>
                     <size>1 1 1</size>
                 </box>
             </geometry>
         </collision>
-        
-        <visual name = "link_vis">
+        <visual name = "box_vis">
             <geometry>
                 <box>
                     <size>1 1 1</size>
                 </box>
             </geometry>
+            <material>
+                <script>
+                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                    <name>Gazebo/Blue</name>
+                </script>
+            </material>
         </visual>
-
     </link>
-
 </model>
 </sdf>
