@@ -1,8 +1,15 @@
-<sdf version="1.4">
-    <model name="dd_robot">
+<sdf version="1.7">
+<model name="dd_robot">
+
+    <!-- Chassis -->
     <link name="chassis">
         <pose>0.0 0.0 0.1 0.0 0.0 0.0</pose>
         <static>true</static>
+
+        <inertial>
+            <mass>100</mass>
+        </inertial>
+
         <collision name="collision">
             <geometry>
                 <box>
@@ -10,12 +17,19 @@
                 </box>
             </geometry>
         </collision>
+
         <visual name="visual">
             <geometry>
                 <box>
                     <size>0.4 0.2 0.1</size>
                 </box>
             </geometry>
+             <material>
+                <script>
+                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                    <name>Gazebo/Red</name>
+                </script>
+            </material>
         </visual>
 
         <!-- Caster wheel -->
@@ -26,20 +40,18 @@
                     <radius>0.05</radius>
                 </sphere>
             </geometry>
-
+            
             <surface>
                 <friction>
                     <ode>
-                        <mu>0</mu>
-                        <mu2>0</mu2>
-                        <slip1>1.0</slip1>
-                        <slip2>1.0</slip2>
+                        <mu>3.0</mu>
+                        <mu2>3.0</mu2>
+                        <slip1>0.001</slip1>
+                        <slip2>0.001</slip2>
                     </ode>
                 </friction>
             </surface>
-        
         </collision>
-    
 
         <visual name="caster_visual">
             <pose>-0.15 0 -0.05 0 0 0 </pose>
@@ -49,12 +61,14 @@
                 </sphere>
             </geometry>
         </visual>
+
     </link>
 
     <!-- Right wheel -->
     <link name="right_wheel">
-        <pose>0.1 0.13 0.1 0 1.5707 1.5707</pose>
-        <static>Ture</static>
+        <pose>0.1 -0.13 0.1 0 1.5707 1.5707</pose>
+        <static>True</static>
+
         <collision name="rw_collision">
             <geometry>
                 <cylinder>
@@ -62,22 +76,39 @@
                     <length>0.05</length>
                 </cylinder>
             </geometry>
+            
+            <friction>
+                <ode>
+                    <mu>5.0</mu>
+                    <mu2>5.0</mu2>
+                    <slip1>0.0</slip1>
+                    <slip2>0.0</slip2>
+                </ode>
+            </friction>
         </collision>
 
-        <visual name="lw_visual">
+        <visual name="rw_visual">
             <geometry>
                 <cylinder>
                     <radius>0.1</radius>
                     <length>0.05</length>
                 </cylinder>
             </geometry>
+            <material>
+                <script>
+                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                    <name>Gazebo/Green</name>
+                </script>
+            </material>
         </visual>
+
     </link>
 
     <!-- Left wheel -->
     <link name="left_wheel">
-        <pose>0.1 -0.13 0.1 0 1.5707 1.5707</pose>
-        <static>true</static>
+        <pose>0.1 0.13 0.1 0 1.5707 1.5707</pose>
+        <static>True</static>
+
         <collision name="lw_collision">
             <geometry>
                 <cylinder>
@@ -85,8 +116,15 @@
                     <length>0.05</length>
                 </cylinder>
             </geometry>
+            <friction>
+                <ode>
+                    <mu>5.0</mu>
+                    <mu2>5.0</mu2>
+                    <slip1>0.0</slip1>
+                    <slip2>0.0</slip2>
+                </ode>
+            </friction>
         </collision>
-
         <visual name="lw_visual">
             <geometry>
                 <cylinder>
@@ -94,31 +132,50 @@
                     <length>0.05</length>
                 </cylinder>
             </geometry>
+            <material>
+                <script>
+                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                    <name>Gazebo/Green</name>
+                </script>
+            </material>
         </visual>
-    
-
     </link>
-
     
+    <!-- Joints -->
     <joint type="revolute" name="left_wheel_hinge">
-        <pose> 0 0 -0.3 0 0 0 </pose>
+        <pose> 0 0 -0.03 0 0 0 </pose>
         <child>left_wheel</child>
         <parent>chassis</parent>
         <axis>
-            <xyz>0 1 0</xyz>
+            <xyz>0 0 1</xyz>
         </axis>
+        <dynamics>
+            <friction>100.0</friction>
+            <spring_stiffness>0.5</spring_stiffness>
+            <damping>0.7</damping>
+        </dynamics>
+        <limit>
+            <effort>0.01</effort>
+            <velocity>0.15</velocity>
+        </limit>
     </joint>
 
     <joint type="revolute" name="right_wheel_hinge">
-        <pose> 0 0 0.3 0 0 0 </pose>
+        <pose> 0 0 0.03 0 0 0 </pose>
         <child>right_wheel</child>
         <parent>chassis</parent>
         <axis>
-            <xyz>0 1 0</xyz>
+            <xyz>0 0 1</xyz>
         </axis>
+        <dynamics>
+            <friction>100.0</friction>
+            <spring_stiffness>0.5</spring_stiffness>
+            <damping>0.7</damping>
+        </dynamics>
+        <limit>
+            <effort>0.01</effort>
+            <velocity>0.15</velocity.
+        </limit>
     </joint>
-
-
-    </model>
-
+</model>
 </sdf>

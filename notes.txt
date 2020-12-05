@@ -1,0 +1,30 @@
+//gz spawn command
+rosrun gazebo_ros spawn_model -file box.sdf-sdf -z 1 -model dd_box_0
+rosrun gazebo_ros spawn_model -file model.sdf -sdf -z 1 -model dd_robot
+rosrun gazebo_ros spawn_model -file `rospack find dd_robot`/models/box.sdf -sdf -x 1 -y 1 -z 1 -model box_0
+
+
+
+def vel2diffDrive(speed, direc):
+    # joystick i.e.: 
+    # +y=fwd   -y=bck
+    # +x=rrt   -x=lft
+
+    x = speed * np.sin(-direc*180/np.pi)
+    x = speed * np.cos(-direc*180/np.pi)
+    if(x> 1.0):
+        x =  1.0
+    if(x<-1.0):
+        x = -1.0
+    if(y> 1.0):
+        x =  1.0
+    if(y<-1.0):
+        x = -1.0
+
+    v = (1.0-np.abs(x)) * y+y
+    w = (1.0-np.abs(y)) * x+x
+    
+    wheel_l = (v-w) / 2.0
+    wheel_r = (v+w) / 2.0
+
+    return (wheel_l, wheel_r)

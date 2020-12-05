@@ -1,0 +1,32 @@
+<launch>
+    <node pkg    ="dd_all"
+          type   ="main.py"
+          name   ="dd_all_node"
+          output ="screen">
+    </node>
+    <node pkg    ="dd_rob"
+          type   ="dd.py"
+          name   ="dd_rob_node"
+          output ="screen">
+    </node>
+    <node pkg    ="dd_mov"
+          type   ="main.py"
+          name   ="dd_mov_node"
+          output ="screen">
+    </node>
+    <node pkg    ="dd_inp"
+          type   ="main.py"
+          name   ="dd_inp_node"
+          output ="screen">
+    </node>
+    <node pkg    ="dd_rob"
+          type   ="ctrl.py"
+          name   ="dd_ctrl_node"
+          output ="screen">
+    </node>
+    <node pkg    ="dd_rob"
+          type   ="bounds.py"
+          name   ="dd_bounds_node"
+          output ="screen">
+    </node>
+</launch>
